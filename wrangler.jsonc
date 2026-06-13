@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "worldcup-visualizer",
   "compatibility_date": "2026-06-13",
+  "preview_urls": true,
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"
