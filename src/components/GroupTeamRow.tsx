@@ -49,9 +49,6 @@ export function GroupTeamRow({
 
   return (
     <div
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -60,10 +57,10 @@ export function GroupTeamRow({
         marginBottom: isD ? 3 : 4,
         padding: isD ? '0 7px' : '0 8px',
         borderRadius: isD ? 7 : 10,
-        cursor: 'grab',
         position: 'relative',
         userSelect: 'none',
-        touchAction: 'none',
+        // Row itself stays scrollable on touch; only the grip starts a drag.
+        touchAction: 'pan-y',
         background: dragging ? 'rgba(37,210,154,0.14)' : C.teamRow,
         border: `1px solid ${dragging ? C.green : 'transparent'}`,
         transform: dragging ? `translateY(${dragOffset}px) scale(1.02)` : 'none',
@@ -72,7 +69,27 @@ export function GroupTeamRow({
         transition: dragging ? 'none' : 'transform .12s ease, background .12s',
       }}
     >
-      <span style={{ flexShrink: 0, color: C.grip, fontSize: isD ? 11 : 14, lineHeight: 1 }}>⠿</span>
+      <span
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        style={{
+          flexShrink: 0,
+          color: C.grip,
+          fontSize: isD ? 11 : 16,
+          lineHeight: 1,
+          // The grip is the only drag affordance; give it a comfortable hit area.
+          cursor: 'grab',
+          touchAction: 'none',
+          alignSelf: 'stretch',
+          display: 'grid',
+          placeItems: 'center',
+          minWidth: isD ? 14 : 26,
+          marginLeft: isD ? -2 : -4,
+        }}
+      >
+        ⠿
+      </span>
       <div
         style={{
           flexShrink: 0,
